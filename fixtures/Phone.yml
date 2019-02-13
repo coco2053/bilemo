@@ -1,0 +1,65 @@
+App\Entity\Phone:
+    # ...
+    phone1:
+        brand: Apple
+        modelName: Iphone 7
+        modelRef: a1778
+        memory: 16
+        color: black
+        price: 400
+
+    phone2:
+        brand: Samsung
+        modelName: Galaxy S8
+        modelRef: SMG-950
+        memory: 32
+        color: white
+        price: 500
+
+    phone3:
+        brand: Huawei
+        modelName: P9
+        modelRef: EVA-L09
+        memory: 32
+        color: blue
+        price: 245
+
+    phone4:
+        brand: Sony
+        modelName: Xperia XZ
+        modelRef: XP-L04
+        memory: 16
+        color: silver
+        price: 179
+
+    phone5:
+        brand: Nokia
+        modelName: Lumia 650
+        modelRef: LU-452
+        memory: 16
+        color: gold
+        price: 89
+
+    phone6:
+        brand: Apple
+        modelName: Iphone 8
+        modelRef: a1855
+        memory: 32
+        color: white
+        price: 649
+
+    phone7:
+        brand: Samsung
+        modelName: Galaxy Note 5
+        modelRef: SMG-521
+        memory: 32
+        color: gold
+        price: 329
+
+    phone8:
+        brand: Huawei
+        modelName: Mate 10 lite
+        modelRef: EVA-L09
+        memory: 64
+        color: black
+        price: 369
