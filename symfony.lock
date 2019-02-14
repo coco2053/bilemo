@@ -185,6 +185,9 @@
     "ocramius/proxy-manager": {
         "version": "2.1.1"
     },
+    "pagerfanta/pagerfanta": {
+        "version": "v2.0.1"
+    },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
     },
@@ -520,6 +523,9 @@
     },
     "webmozart/assert": {
         "version": "1.4.0"
+    },
+    "white-october/pagerfanta-bundle": {
+        "version": "v1.2.3"
     },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"
