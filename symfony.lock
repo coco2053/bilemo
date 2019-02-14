@@ -527,6 +527,12 @@
     "white-october/pagerfanta-bundle": {
         "version": "v1.2.3"
     },
+    "willdurand/hateoas": {
+        "version": "3.0.0"
+    },
+    "willdurand/hateoas-bundle": {
+        "version": "2.0.0"
+    },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"
     },

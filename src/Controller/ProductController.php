@@ -37,7 +37,7 @@ class ProductController extends FOSRestController
      * @Rest\QueryParam(
      *     name="offset",
      *     requirements="\d+",
-     *     default="0",
+     *     default="1",
      *     description="The pagination offset"
      * )
      * @Rest\View()
