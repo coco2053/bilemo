@@ -19,11 +19,6 @@ class Phone
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $brand;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $modelName;
 
     /**
@@ -46,21 +41,14 @@ class Phone
      */
     private $price;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getBrand(): ?string
-    {
-        return $this->brand;
-    }
-
-    public function setBrand(string $brand): self
-    {
-        $this->brand = $brand;
-
-        return $this;
     }
 
     public function getModelName(): ?string
@@ -119,6 +107,18 @@ class Phone
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

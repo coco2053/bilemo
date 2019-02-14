@@ -4,16 +4,20 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use App\Repository\PhoneRepository;
 
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/product", name="product")
+     * @Rest\Get("/products", name="product_list")
+     *
+     * @Rest\View()
      */
-    public function index()
+    public function list(PhoneRepository $repo)
     {
-        return $this->render('product/index.html.twig', [
-            'controller_name' => 'ProductController',
-        ]);
+        $phones = $repo->findAll();
+
+        return $phones;
     }
 }
