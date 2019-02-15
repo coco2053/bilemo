@@ -1,0 +1,9 @@
+App\Entity\Phone:
+    # ...
+    phone_{1..30}:
+        modelName: '<modelName()>'
+        modelRef: '<modelRef()>'
+        memory: '<memory()>'
+        color: '<color()>'
+        price: '<price()>'
+        description: '<sentence()>'
