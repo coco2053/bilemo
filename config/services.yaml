@@ -5,6 +5,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    github_client_id: febe88cb8aeec367b543
+    github_client_secret: 9d8162ce74051a5f542ef23b705d9f726047c4de
+    my_api_url: http://127.0.0.1:8001/
 
 services:
     # default configuration for services in *this* file

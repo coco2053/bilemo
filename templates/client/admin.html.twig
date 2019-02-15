@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Administration</h1>
+    <p class="lead">If you can access this page, it's because you are authenticated.</p>
+    <p class="lead">
+        Actually you are!
+        <br />
+        We have an access token: {{ app.user.username }}
+    </p>
+{% endblock %}

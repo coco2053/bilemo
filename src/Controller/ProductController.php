@@ -15,7 +15,7 @@ use App\Representation\Phones;
 class ProductController extends FOSRestController
 {
     /**
-     * @Rest\Get("/products", name="product_list")
+     * @Rest\Get("/api/products", name="product_list")
      * @Rest\QueryParam(
      *     name="keyword",
      *     requirements="[a-zA-Z0-9]+",
@@ -56,7 +56,7 @@ class ProductController extends FOSRestController
 
     /**
      * @Rest\Get(
-     *     path = "/products/{id}",
+     *     path = "/api/products/{id}",
      *     name = "product_show",
      *     requirements = {"id"="\d+"}
      * )
