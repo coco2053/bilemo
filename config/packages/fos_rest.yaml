@@ -18,6 +18,7 @@ fos_rest:
       rules:
         - { path: '^/api', priorities: ['json'], fallback_format: 'json' }
         - { path: '^/', stop: true }
+        - { path: '^/admin', stop: true }
     body_converter:
         enabled: true
         validate: true
