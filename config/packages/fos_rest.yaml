@@ -16,7 +16,9 @@ fos_rest:
     param_fetcher_listener:  true
     format_listener:
       rules:
-        - { path: '^/', priorities: ['json'], fallback_format: 'json' }
+        - { path: '^/api', priorities: ['json'], fallback_format: 'json' }
+        - { path: '^/', stop: true }
+        - { path: '^/admin', stop: true }
     body_converter:
         enabled: true
         validate: true
