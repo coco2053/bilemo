@@ -5,13 +5,12 @@ namespace App\Security;
 use GuzzleHttp\Client;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ClientRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
-class GithubUserProvider implements UserProviderInterface
+class ApiUserProvider implements UserProviderInterface
 {
     private $client;
 
@@ -28,7 +27,6 @@ class GithubUserProvider implements UserProviderInterface
         $url = 'https://api.github.com/user?access_token='.$username;
 
         $response = $this->client->get($url);
-
         $res = $response->getBody()->getContents();
         $userData = $this->serializer->deserialize($res, 'array', 'json');
 
@@ -36,35 +34,25 @@ class GithubUserProvider implements UserProviderInterface
             throw new \LogicException('Did not managed to get your user info from Github.');
         }
 
-        $client = $this->repo->findOneBy(['email' => $userData['email']]);
+        $client = $this->repo->findOneBy(['token' => $username]);
         if ($client == null) {
-            $client = new \App\Entity\Client(
-                $userData['login'],
-                $userData['name'],
-                $userData['email'],
-                $userData['avatar_url'],
-                $userData['html_url'],
-                $username
-            );
-            $this->manager->persist($client);
-            $this->manager->flush();
-            return $client;
+            throw new \LogicException('The token is not valid !.');
+        }
+        return $client;
+    }
+
+    public function refreshUser(UserInterface $client)
+    {
+        $class = get_class($client);
+        if (!$this->supportsClass($class)) {
+            throw new UnsupportedUserException();
         }
 
         return $client;
     }
 
-    public function refreshUser(UserInterface $user)
-    {
-        $class = get_class($user);
-        if (!$this->supportsClass($class)) {
-            throw new UnsupportedUserException();
-        }
-        return $user;
-    }
-
     public function supportsClass($class)
     {
-        return 'Symfony\Component\Security\Core\User\User' === $class;
+        return 'App\Entity\Client' === $class;
     }
 }

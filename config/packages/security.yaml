@@ -4,6 +4,8 @@ security:
         in_memory: { memory: ~ }
         github_user_provider:
             id: github_user_provider
+        api_user_provider:
+            id: api_user_provider
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -17,6 +19,12 @@ security:
             logout:
                 path:   /admin/logout
                 target: /
+        api:
+            pattern: ^/api
+            stateless: true
+            simple_preauth:
+                authenticator: api_authenticator
+            provider: api_user_provider
 
         main:
             anonymous: ~

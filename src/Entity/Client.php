@@ -3,11 +3,16 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
+ * @UniqueEntity(
+ * fields= {"email"},
+ * message= "L'email que vous avez indiqué est déjà utilisé !")
  */
-class Client
+class Client implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -27,12 +32,12 @@ class Client
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fullname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $email;
 
@@ -45,6 +50,16 @@ class Client
      * @ORM\Column(type="string", length=255)
      */
     private $profileHtmlUrl;
+
+    public function __construct($username, $fullname, $email, $avatarUrl, $profileHtmlUrl, $token)
+    {
+        $this->username = $username;
+        $this->fullname = $fullname;
+        $this->email = $email;
+        $this->avatarUrl = $avatarUrl;
+        $this->profileHtmlUrl = $profileHtmlUrl;
+        $this->token = $token;
+    }
 
     public function getId(): ?int
     {
@@ -121,5 +136,22 @@ class Client
         $this->profileHtmlUrl = $profileHtmlUrl;
 
         return $this;
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword()
+    {
+    }
+
+    public function getSalt()
+    {
+    }
+
+    public function eraseCredentials()
+    {
     }
 }

@@ -4,7 +4,14 @@ namespace App\Representation;
 
 use Pagerfanta\Pagerfanta;
 use JMS\Serializer\Annotation\Type;
+use Hateoas\Configuration\Annotation as Hateoas;
 
+/**
+ * @Hateoas\Relation(
+ *     "authenticated_user",
+ *     embedded = @Hateoas\Embedded("expr(service('security.token_storage').getToken().getUser())")
+ * )
+ */
 class Phones
 {
     /**
