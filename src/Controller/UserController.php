@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\ConstraintViolationList;
 use App\Exception\ResourceValidationException;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations\Version;
@@ -91,5 +92,28 @@ class UserController extends AbstractController
         $manager->flush();
 
         return $user;
+    }
+
+    /**
+     * @Rest\Delete(
+     *     path = "/api/users/{id}",
+     *     name = "user_delete",
+     *     requirements = {"id"="\d+"}
+     * )
+     * @Rest\View
+     */
+    public function delete($id, EntityManagerInterface $manager, UserRepository $repo)
+    {
+        if ($repo->find($id)) {
+            $userD = $repo->find($id);
+
+            if ($userD->getClient() == $this->getUser()) {
+                $manager->remove($userD);
+                $manager->flush();
+                return new Response('User successfully deleted', Response::HTTP_ACCEPTED);
+            }
+            return new Response('This user is not yours. You are not allowed to delete it !', Response::HTTP_UNAUTHORIZED);
+        }
+        return new Response('No user found with ID '.$id, Response::HTTP_NO_CONTENT);
     }
 }
