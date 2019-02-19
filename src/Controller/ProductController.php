@@ -68,6 +68,6 @@ class ProductController extends FOSRestController
             return $phone;
         }
 
-        return new Response('No product found with ID '.$id, Response::HTTP_NOT_FOUND);
+        return new Response('No product found with ID '.$id, Response::HTTP_NO_CONTENT);
     }
 }

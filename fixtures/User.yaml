@@ -1,0 +1,25 @@
+App\Entity\User:
+    # ...
+    user_{1..30}:
+        email: '<email()>'
+        password: '<password()>'
+        username: '<userName()>'
+        avatarImage: '<imageUrl(64, 64)>'
+        registeredAt: '<dateTimeThisYear()>'
+        client: '@client_*'
+
+App\Entity\Client:
+    client_1:
+        token: 'e2a183ec9f94e6175a0b5934eb1a3b7bb2c4f314'
+        username: 'coco2053'
+        fullname: 'Bastien Vacherand'
+        email: 'coco2053@hotmail.com'
+        avatarUrl: 'https://avatars1.githubusercontent.com/u/11075343?v=4'
+        profileHtmlUrl: 'https://github.com/coco2053'
+    client_2:
+        token: 'f08ebdc8f61a12f4722a92493e5c8ff54c2c39f7'
+        username: 'bastienvacherand'
+        fullname: ''
+        email: ''
+        avatarUrl: 'https://avatars1.githubusercontent.com/u/47662755?v=4'
+        profileHtmlUrl: 'https://github.com/bastienvacherand'

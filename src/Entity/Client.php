@@ -14,8 +14,8 @@ use JMS\Serializer\Annotation\Expose;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  * @UniqueEntity(
- * fields= {"email"},
- * message= "L'email que vous avez indiqué est déjà utilisé !")
+ * fields= {"username"},
+ * message= "Username already registered !")
  *
  * @ExclusionPolicy("all")
  *
@@ -66,20 +66,14 @@ class Client implements UserInterface
      */
     private $profileHtmlUrl;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="client", orphanRemoval=true)
-     */
-    private $users;
-
-    public function __construct($username, $fullname, $email, $avatarUrl, $profileHtmlUrl, $token)
+    public function __construct($token, $username, $fullname, $email, $avatarUrl, $profileHtmlUrl)
     {
+        $this->token = $token;
         $this->username = $username;
         $this->fullname = $fullname;
         $this->email = $email;
         $this->avatarUrl = $avatarUrl;
         $this->profileHtmlUrl = $profileHtmlUrl;
-        $this->token = $token;
-        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -174,36 +168,5 @@ class Client implements UserInterface
 
     public function eraseCredentials()
     {
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-            // set the owning side to null (unless already changed)
-            if ($user->getClient() === $this) {
-                $user->setClient(null);
-            }
-        }
-
-        return $this;
     }
 }
