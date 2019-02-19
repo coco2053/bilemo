@@ -7,12 +7,17 @@ use Hateoas\Configuration\Annotation as Hateoas;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(
  * fields= {"email"},
  * message= "Email entered already used!")
+ *
+ * @ExclusionPolicy("all")
+ *
  */
 class User
 {
@@ -20,6 +25,7 @@ class User
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Serializer\Expose
      */
     private $id;
 
@@ -28,6 +34,7 @@ class User
      * @Serializer\Expose
      * @Serializer\Since("2.0")
      * @Assert\NotBlank(groups={"Create"})
+     * @Serializer\Expose
      */
     private $email;
 
@@ -37,6 +44,7 @@ class User
      * @Serializer\Since("2.0")
      * @Assert\NotBlank(groups={"Create"})
      * @Assert\Length(min="8", minMessage="Password must contain at least 8 characters !", groups={"Create"})
+     * @Serializer\Expose
      */
     private $password;
 
@@ -46,6 +54,7 @@ class User
      * @Serializer\Since("2.0")
      * @Assert\NotBlank(groups={"Create"})
      * @Assert\Length(min="3", minMessage="Username must be at least 3 characters long !", groups={"Create"})
+     * @Serializer\Expose
      */
     private $username;
 
@@ -58,6 +67,7 @@ class User
 
     /**
      * @ORM\Column(type="datetime")
+     * @Serializer\Expose
      */
     private $registeredAt;
 
