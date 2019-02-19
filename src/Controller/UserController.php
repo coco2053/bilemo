@@ -64,6 +64,25 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Rest\Get(
+     *     path = "/api/users/{id}",
+     *     name = "user_show",
+     *     requirements = {"id"="\d+"}
+     * )
+     * @Rest\View
+     */
+    public function show(User $user, $id)
+    {
+        if ($user) {
+            if ($user->getClient() == $this->getUser()) {
+                return $user;
+            }
+            return new Response('This user is not yours. You are not allowed to see it !', Response::HTTP_UNAUTHORIZED);
+        }
+        return new Response('No user found with ID '.$id, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
      * @Rest\Post("/api/users")
      * @Rest\View(StatusCode = 201)
      * @ParamConverter(
