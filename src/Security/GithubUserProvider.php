@@ -36,15 +36,15 @@ class GithubUserProvider implements UserProviderInterface
             throw new \LogicException('Did not managed to get your user info from Github.');
         }
 
-        $client = $this->repo->findOneBy(['email' => $userData['email']]);
+        $client = $this->repo->findOneBy(['username' => $userData['login']]);
         if ($client == null) {
             $client = new \App\Entity\Client(
+                $username,
                 $userData['login'],
                 $userData['name'],
                 $userData['email'],
                 $userData['avatar_url'],
-                $userData['html_url'],
-                $username
+                $userData['html_url']
             );
             $this->manager->persist($client);
             $this->manager->flush();
