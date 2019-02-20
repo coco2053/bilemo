@@ -14,6 +14,7 @@ use JMS\Serializer\Annotation\Expose;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(
  * fields= {"email"},
+ * groups={"Create"},
  * message= "Email entered already used!")
  *
  * @ExclusionPolicy("all")
@@ -51,6 +52,7 @@ class User
      * @Serializer\Expose
      * @Serializer\Since("2.0")
      * @Assert\NotBlank(groups={"Create"})
+     * @Assert\Email(groups={"Create"})
      * @Serializer\Expose
      */
     private $email;

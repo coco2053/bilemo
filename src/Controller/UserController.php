@@ -18,7 +18,7 @@ use App\Representation\Users;
 use App\Repository\UserRepository;
 
 /**
- * @Version("2.0")
+ * @Version("v2")
  */
 class UserController extends AbstractController
 {
