@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,6 +42,8 @@ class ProductController extends FOSRestController
      *     description="The pagination offset"
      * )
      * @Rest\View()
+     *
+     * @Cache(expires="+5 minutes")
      */
     public function list(ParamFetcherInterface $paramFetcher, PhoneRepository $repo)
     {
@@ -61,6 +64,8 @@ class ProductController extends FOSRestController
      *     requirements = {"id"="\d+"}
      * )
      * @Rest\View
+     *
+     * @Cache(expires="+5 minutes")
      */
     public function show(Phone $phone, $id)
     {
