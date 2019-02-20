@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\ConstraintViolationList;
 use App\Exception\ResourceValidationException;
@@ -48,6 +49,8 @@ class UserController extends AbstractController
      *     description="The pagination offset"
      * )
      * @Rest\View()
+     *
+     * @Cache(expires="+5 minutes")
      */
     public function list(ParamFetcherInterface $paramFetcher, UserRepository $repo)
     {
@@ -70,6 +73,8 @@ class UserController extends AbstractController
      *     requirements = {"id"="\d+"}
      * )
      * @Rest\View
+     *
+     * @Cache(expires="+5 minutes")
      */
     public function show(User $user, $id)
     {
