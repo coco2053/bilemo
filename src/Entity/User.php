@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -14,6 +16,7 @@ use JMS\Serializer\Annotation\Expose;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(
  * fields= {"email"},
+ * groups={"Create"},
  * message= "Email entered already used!")
  *
  * @ExclusionPolicy("all")
@@ -51,17 +54,13 @@ class User
      * @Serializer\Expose
      * @Serializer\Since("2.0")
      * @Assert\NotBlank(groups={"Create"})
+     * @Assert\Email(groups={"Create"})
      * @Serializer\Expose
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Serializer\Expose
-     * @Serializer\Since("2.0")
-     * @Assert\NotBlank(groups={"Create"})
-     * @Assert\Length(min="8", minMessage="Password must contain at least 8 characters !", groups={"Create"})
-     * @Serializer\Expose
      */
     private $password;
 

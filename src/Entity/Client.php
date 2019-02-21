@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation as Serializer;
@@ -32,7 +34,6 @@ class Client implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Serializer\Expose
      */
     private $token;
 
@@ -65,6 +66,12 @@ class Client implements UserInterface
      * @Serializer\Expose
      */
     private $profileHtmlUrl;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="client", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"registeredAt" = "DESC"})
+     */
+    private $users;
 
     public function __construct($token, $username, $fullname, $email, $avatarUrl, $profileHtmlUrl)
     {
@@ -149,6 +156,34 @@ class Client implements UserInterface
     public function setProfileHtmlUrl(string $profileHtmlUrl): self
     {
         $this->profileHtmlUrl = $profileHtmlUrl;
+
+        return $this;
+    }
+
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getClient() === $this) {
+                $client->setClient(null);
+            }
+        }
 
         return $this;
     }
