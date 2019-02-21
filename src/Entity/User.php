@@ -59,11 +59,6 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Serializer\Expose
-     * @Serializer\Since("2.0")
-     * @Assert\NotBlank(groups={"Create"})
-     * @Assert\Length(min="8", minMessage="Password must contain at least 8 characters !", groups={"Create"})
-     * @Serializer\Expose
      */
     private $password;
 

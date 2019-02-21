@@ -12,8 +12,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations\Version;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use Swagger\Annotations as SWG;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
+use App\Form\UserType;
 use App\Representation\Users;
 use App\Repository\UserRepository;
 
@@ -51,6 +55,23 @@ class UserController extends AbstractController
      * @Rest\View()
      *
      * @Cache(expires="+5 minutes")
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns a list of all users related to an authentified client",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=User::class, groups={"full"}))
+     *     )
+     * )
+     * @SWG\Parameter(
+     *     name="keyword",
+     *     in="query",
+     *     type="string",
+     *     description="Search for a username with a keyword"
+     * )
+     * @SWG\Tag(name="users")
+     * @Security(name="Bearer")
      */
     public function list(ParamFetcherInterface $paramFetcher, UserRepository $repo)
     {
@@ -75,6 +96,31 @@ class UserController extends AbstractController
      * @Rest\View
      *
      * @Cache(expires="+5 minutes")
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns user details",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=User::class, groups={"full"}))
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=403,
+     *     description="Returned when ressource is not yours"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Returned when ressource is not found"
+     * )
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="query",
+     *     type="integer",
+     *     description="id number of the user"
+     * )
+     * @SWG\Tag(name="users")
+     * @Security(name="Bearer")
      */
     public function show(User $user, $id)
     {
@@ -97,6 +143,26 @@ class UserController extends AbstractController
      *         "validator"={ "groups"="Create" }
      *     }
      * )
+     *
+     * @SWG\Response(
+     *     response=201,
+     *     description="Returns user details",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=User::class, groups={"full"}))
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Returned when a violation is raised by validation"
+     * )
+     * @SWG\Parameter(
+     *     name="User",
+     *     in="body",
+     *     @Model(type=UserType::class)
+     * )
+     * @SWG\Tag(name="users")
+     * @Security(name="Bearer")
      */
     public function add(User $user, EntityManagerInterface $manager, ConstraintViolationList $violations)
     {
@@ -124,7 +190,21 @@ class UserController extends AbstractController
      *     name = "user_delete",
      *     requirements = {"id"="\d+"}
      * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="User successfully deleted"
+     * )
+     * @SWG\Response(
+     *     response=403,
+     *     description="Returned when ressource is not yours"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Returned when ressource is not found"
+     * )
      * @Rest\View
+     * @SWG\Tag(name="users")
+     * @Security(name="Bearer")
      */
     public function delete($id, EntityManagerInterface $manager, UserRepository $repo)
     {
