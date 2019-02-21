@@ -51,7 +51,7 @@ class ProductController extends FOSRestController
      *     description="Returns a list of all products",
      *     @SWG\Schema(
      *         type="array",
-     *         @SWG\Items(ref=@Model(type=Phone::class, groups={"full"}))
+     *         @SWG\Items(ref=@Model(type=Phone::class))
      *     )
      * )
      * @SWG\Parameter(
@@ -90,7 +90,7 @@ class ProductController extends FOSRestController
      *     description="Returns product details",
      *     @SWG\Schema(
      *         type="array",
-     *         @SWG\Items(ref=@Model(type=Phone::class, groups={"full"}))
+     *         @SWG\Items(ref=@Model(type=Phone::class))
      *     )
      * )
      * @SWG\Response(

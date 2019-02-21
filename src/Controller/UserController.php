@@ -61,7 +61,7 @@ class UserController extends AbstractController
      *     description="Returns a list of all users related to an authentified client",
      *     @SWG\Schema(
      *         type="array",
-     *         @SWG\Items(ref=@Model(type=User::class, groups={"full"}))
+     *         @SWG\Items(ref=@Model(type=User::class))
      *     )
      * )
      * @SWG\Parameter(
@@ -102,7 +102,7 @@ class UserController extends AbstractController
      *     description="Returns user details",
      *     @SWG\Schema(
      *         type="array",
-     *         @SWG\Items(ref=@Model(type=User::class, groups={"full"}))
+     *         @SWG\Items(ref=@Model(type=User::class))
      *     )
      * )
      * @SWG\Response(
@@ -149,7 +149,7 @@ class UserController extends AbstractController
      *     description="Returns user details",
      *     @SWG\Schema(
      *         type="array",
-     *         @SWG\Items(ref=@Model(type=User::class, groups={"full"}))
+     *         @SWG\Items(ref=@Model(type=User::class))
      *     )
      * )
      * @SWG\Response(

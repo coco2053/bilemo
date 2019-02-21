@@ -5,9 +5,14 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PhoneRepository")
+ * @UniqueEntity(
+ * fields= {"modelName"},
+ * groups={"Create"},
+ * message= "Model name entered already registered !")
  *
  * @Hateoas\Relation(
  *      "get",
