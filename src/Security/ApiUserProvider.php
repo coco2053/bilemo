@@ -33,12 +33,13 @@ class ApiUserProvider implements UserProviderInterface
         if (!$userData) {
             throw new \LogicException('Did not managed to get your user info from Github.');
         }
+        if (!$this->repo->findOneBy(['token' => $username])) {
+            throw new \LogicException('The token is not valid !.');
+        }
 
         $token = $this->repo->findOneBy(['token' => $username]);
         $client = $token->getClient();
-        if ($client == null) {
-            throw new \LogicException('The token is not valid !.');
-        }
+
         $now = new \DateTime("now");
         $interval = date_diff($token->getCreatedAt(), $now);
         if ($interval->format('%d') > 1) {
