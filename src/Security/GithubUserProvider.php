@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ClientRepository;
+use App\Entity\Token;
 
 class GithubUserProvider implements UserProviderInterface
 {
@@ -39,18 +40,24 @@ class GithubUserProvider implements UserProviderInterface
         $client = $this->repo->findOneBy(['username' => $userData['login']]);
         if ($client == null) {
             $client = new \App\Entity\Client(
-                $username,
                 $userData['login'],
                 $userData['name'],
                 $userData['email'],
                 $userData['avatar_url'],
                 $userData['html_url']
             );
-            $this->manager->persist($client);
+            $token = new Token();
+            $token->setToken($username);
+            $client->setToken($token);
+            $this->manager->persist($client, $token);
             $this->manager->flush();
             return $client;
         }
-
+        $token = $client->getToken();
+        $token->SetToken($username)
+              ->SetCreatedAt(new \DateTime());
+        $this->manager->persist($client, $token);
+        $this->manager->flush();
         return $client;
     }
 
