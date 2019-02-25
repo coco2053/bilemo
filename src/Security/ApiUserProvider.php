@@ -7,14 +7,14 @@ use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use App\Repository\ClientRepository;
+use App\Repository\TokenRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ApiUserProvider implements UserProviderInterface
 {
     private $client;
 
-    public function __construct(Client $client, SerializerInterface $serializer, EntityManagerInterface $manager, ClientRepository $repo)
+    public function __construct(Client $client, SerializerInterface $serializer, EntityManagerInterface $manager, TokenRepository $repo)
     {
         $this->client = $client;
         $this->serializer = $serializer;
@@ -33,10 +33,17 @@ class ApiUserProvider implements UserProviderInterface
         if (!$userData) {
             throw new \LogicException('Did not managed to get your user info from Github.');
         }
-
-        $client = $this->repo->findOneBy(['token' => $username]);
-        if ($client == null) {
+        if (!$this->repo->findOneBy(['token' => $username])) {
             throw new \LogicException('The token is not valid !.');
+        }
+
+        $token = $this->repo->findOneBy(['token' => $username]);
+        $client = $token->getClient();
+
+        $now = new \DateTime("now");
+        $interval = date_diff($token->getCreatedAt(), $now);
+        if ($interval->format('%d') > 1) {
+            throw new \LogicException('The token has expired ! Please login in to get a new token.');
         }
         return $client;
     }

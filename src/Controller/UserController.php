@@ -122,7 +122,7 @@ class UserController extends AbstractController
      * @SWG\Tag(name="users")
      * @Security(name="Bearer")
      */
-    public function show(User $user, $id)
+    public function show(User $user = null, $id)
     {
         if ($user) {
             if ($user->getClient() == $this->getUser()) {
@@ -130,7 +130,7 @@ class UserController extends AbstractController
             }
             return new Response('This user is not yours. You are not allowed to see it !', Response::HTTP_UNAUTHORIZED);
         }
-        return new Response('No user found with ID '.$id, Response::HTTP_NO_CONTENT);
+        return new Response('No user found with ID '.$id, Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -218,6 +218,6 @@ class UserController extends AbstractController
             }
             return new Response('This user is not yours. You are not allowed to delete it !', Response::HTTP_UNAUTHORIZED);
         }
-        return new Response('No user found with ID '.$id, Response::HTTP_NO_CONTENT);
+        return new Response('No user found with ID '.$id, Response::HTTP_NOT_FOUND);
     }
 }

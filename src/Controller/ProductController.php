@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -106,12 +107,12 @@ class ProductController extends FOSRestController
      * @SWG\Tag(name="products")
      * @Security(name="Bearer")
      */
-    public function show(Phone $phone, $id)
+    public function show(Phone $phone = null, $id)
     {
         if ($phone) {
             return $phone;
         }
 
-        return new Response('No product found with ID '.$id, Response::HTTP_NO_CONTENT);
+        return new Response('No product found with ID '.$id, Response::HTTP_NOT_FOUND);
     }
 }

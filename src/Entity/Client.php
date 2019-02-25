@@ -34,11 +34,6 @@ class Client implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     */
-    private $token;
-
-    /**
-     * @ORM\Column(type="string", length=255)
      * @Serializer\Expose
      */
     private $username;
@@ -73,9 +68,14 @@ class Client implements UserInterface
      */
     private $users;
 
-    public function __construct($token, $username, $fullname, $email, $avatarUrl, $profileHtmlUrl)
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Token", inversedBy="client", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $token;
+
+    public function __construct($username, $fullname, $email, $avatarUrl, $profileHtmlUrl)
     {
-        $this->token = $token;
         $this->username = $username;
         $this->fullname = $fullname;
         $this->email = $email;
@@ -86,18 +86,6 @@ class Client implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    public function setToken(string $token): self
-    {
-        $this->token = $token;
-
-        return $this;
     }
 
     public function getUsername(): ?string
@@ -203,5 +191,17 @@ class Client implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    public function getToken(): ?Token
+    {
+        return $this->token;
+    }
+
+    public function setToken(Token $token): self
+    {
+        $this->token = $token;
+
+        return $this;
     }
 }
