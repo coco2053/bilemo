@@ -25,8 +25,8 @@ class ApiUserProvider implements UserProviderInterface
     public function loadUserByUsername($username)
     {
         $url = 'https://api.github.com/user?access_token='.$username;
-
         $response = $this->client->get($url);
+
         $res = $response->getBody()->getContents();
         $userData = $this->serializer->deserialize($res, 'array', 'json');
 
