@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
@@ -21,12 +22,13 @@ class GithubAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     private $clientSecret;
     private $router;
 
-    public function __construct(Client $client, $clientId, $clientSecret, Router $router)
+    public function __construct(Client $client, $clientId, $clientSecret, Router $router, ParameterBagInterface $params)
     {
         $this->client = $client;
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
         $this->router = $router;
+        $this->params = $params;
     }
 
 
@@ -34,7 +36,7 @@ class GithubAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     {
         $code = $request->query->get('code');
         $redirectUri = $this->router->generate('admin_auth', [], ROUTER::ABSOLUTE_URL);
-        $url = 'https://github.com/login/oauth/access_token?client_id='.$this->clientId.'&client_secret='.$this->clientSecret.'&code='.$code.'&redirect_uri='.urlencode($redirectUri);
+        $url = $this->params->get('oAuth_login_url').$this->clientId.'&client_secret='.$this->clientSecret.'&code='.$code.'&redirect_uri='.urlencode($redirectUri);
 
 
         $response = $this->client->post($url, array(''));

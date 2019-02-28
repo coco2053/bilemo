@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ClientRepository;
 use App\Entity\Token;
@@ -16,17 +17,18 @@ class GithubUserProvider implements UserProviderInterface
 {
     private $client;
 
-    public function __construct(Client $client, SerializerInterface $serializer, EntityManagerInterface $manager, ClientRepository $repo)
+    public function __construct(Client $client, SerializerInterface $serializer, EntityManagerInterface $manager, ClientRepository $repo, ParameterBagInterface $params)
     {
         $this->client = $client;
         $this->serializer = $serializer;
         $this->manager = $manager;
         $this->repo = $repo;
+        $this->params = $params;
     }
 
     public function loadUserByUsername($username)
     {
-        $url = 'https://api.github.com/user?access_token='.$username;
+        $url = $this->params->get('oAuth_url').$username;
 
         $response = $this->client->get($url);
 

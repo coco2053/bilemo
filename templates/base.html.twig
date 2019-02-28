@@ -16,7 +16,7 @@
                 {% if app.user %}
                     <a href="{{ path('logout') }}" type="button" class="btn btn-danger btn-lg"><i class="fa fa-sign-out"></i> Logout</a>
                 {% else %}
-                    <a href="https://github.com/login/oauth/authorize?client_id={{ github_client_id }}&redirect_uri={{ url('admin_auth') }}" type="button" class="btn btn-info btn-lg"><i class="fa fa-github"></i> S'authentifier avec Github</a>
+                    <a href="https://github.com/login/oauth/authorize?client_id={{ oAuth_client_id }}&redirect_uri={{ url('admin_auth') }}" type="button" class="btn btn-info btn-lg"><i class="fa fa-github"></i> S'authentifier avec Github</a>
                 {% endif %}
             </div>
             <footer class="footer"><p>&copy; {{ "now"|date("Y") }}</p></footer>

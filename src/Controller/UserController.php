@@ -106,7 +106,7 @@ class UserController extends AbstractController
      *     )
      * )
      * @SWG\Response(
-     *     response=403,
+     *     response=401,
      *     description="Returned when ressource is not yours"
      * )
      * @SWG\Response(
