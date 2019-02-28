@@ -5,8 +5,11 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
-    github_client_id: 806299efff55f7676ecf
-    github_client_secret: a64976af5a43670730a79bc76d6ad55a79dcb402
+    oAuth_client_id: 806299efff55f7676ecf
+    oAuth_client_secret: a64976af5a43670730a79bc76d6ad55a79dcb402
+    oAuth_url: https://api.github.com/user?access_token=
+    oAuth_login_url: https://github.com/login/oauth/access_token?client_id=
+
     my_api_url: http://127.0.0.1:8000/
 
 services:
@@ -31,7 +34,7 @@ services:
     # please note that last definitions always *replace* previous ones
     github_authenticator:
         class: App\Security\GithubAuthenticator
-        arguments: ["@csa_guzzle.client.github_oauth", "%github_client_id%", "%github_client_secret%", "@router"]
+        arguments: ["@csa_guzzle.client.github_oauth", "%oAuth_client_id%", "%oAuth_client_secret%", "@router"]
 
     github_user_provider:
         class: App\Security\GithubUserProvider

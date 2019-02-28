@@ -14,8 +14,8 @@ class ClientController extends AbstractController
      */
     public function tokenClaim(ParameterBagInterface $params)
     {
-        $github_client_id = $params->get('github_client_id');
-        return $this->render('client/index.html.twig', ['github_client_id' => $github_client_id]);
+        $oAuth_client_id = $params->get('oAuth_client_id');
+        return $this->render('client/index.html.twig', ['oAuth_client_id' => $oAuth_client_id]);
     }
 
     /**

@@ -36,6 +36,16 @@ class Token
         $this->setCreatedAt(new \DateTime());
     }
 
+    public function checkValidity()
+    {
+        $now = new \DateTime("now");
+        $interval = date_diff($this->getCreatedAt(), $now);
+        if ($interval->format('%d') > 1) {
+            return false;
+        }
+        return true;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -3,6 +3,7 @@
 namespace Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class ClientControllerTest extends WebTestCase
 {
@@ -12,7 +13,7 @@ class ClientControllerTest extends WebTestCase
         $client->followRedirects();
         $client->request('GET', '/');
 
-        $this->assertSame(200, $client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
 
         $crawler = $client->request('GET', '/');
         $this->assertGreaterThan(
@@ -26,7 +27,7 @@ class ClientControllerTest extends WebTestCase
         $client->followRedirects();
         $client->request('GET', '/doc');
 
-        $this->assertSame(200, $client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
 
         $crawler = $client->request('GET', '/doc');
         $this->assertGreaterThan(
