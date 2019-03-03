@@ -10,18 +10,18 @@ App\Entity\User:
 
 App\Entity\Client:
     client_1:
-        username: 'coco2053'
+        username: 'Bastien'
         fullname: 'Bastien Vacherand'
         email: 'coco2053@hotmail.com'
         avatarUrl: 'https://avatars1.githubusercontent.com/u/11075343?v=4'
-        profileHtmlUrl: 'https://github.com/coco2053'
+        profileHtmlUrl: 'https://lh4.googleusercontent.com/-YupipbYx8CQ/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rehcZPd-yfPWdsAAXUulRL1Wtj_6w/mo/photo.jpg'
         token: '@token_1'
     client_2:
-        username: 'bastienvacherand'
-        fullname: ''
-        email: ''
-        avatarUrl: 'https://avatars1.githubusercontent.com/u/47662755?v=4'
-        profileHtmlUrl: 'https://github.com/bastienvacherand'
+        username: 'Bastien'
+        fullname: 'Bastien Vacherand'
+        email: 'bastienvacherand@gmail.com'
+        avatarUrl: 'https://lh4.googleusercontent.com/-T9QNn0BO2NE/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rdLjWQsHct6tgWWt7psWw17p8HspQ/mo/photo.jpg'
+        profileHtmlUrl: ''
         token: '@token_2'
 
 App\Entity\Token:

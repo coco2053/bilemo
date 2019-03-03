@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends WebTestCase
 {
-    const TOKEN = 'Bearer b79da19dcfc99c98bb48030810827a5db30d0d02';
+    const TOKEN = 'Bearer ya29.GlzBBuMFbo8HGqkRXZJOxGkf_4GO6fhdgKJIgLrUyKtBE2YOOn1Jf6jgBE5owARM2B3ZWg5lz5lDWOA2wmulmdHuBRZCtMhLC1GERMFal50cI9AB5-eA-oojhHHNqw';
 
     public function testGetUsersList()
     {
@@ -49,7 +49,7 @@ class UserControllerTest extends WebTestCase
                         "email" => "elmira.grant@hotmail.com",
                         "username" => "thayes",
                         "avatar_image" => "https://lorempixel.com/64/64/?72926",
-                        "registered_at" => "2018-11-13T19:06:28+00:00",
+                        "registered_at" => "2018-11-20T02:16:27+00:00",
                         "_links" => [
                             "get" => [
                                 "href" => "http://localhost/api/users/3"

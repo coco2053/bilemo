@@ -14,6 +14,9 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 
 /**
+ * This class represents the user enity.
+ * @author Bastien Vacherand.
+ *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(
  * fields= {"email"},

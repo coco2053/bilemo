@@ -14,6 +14,9 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 
 /**
+ * This class represents the client enity.
+ * @author Bastien Vacherand.
+ *
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  * @UniqueEntity(
  * fields= {"username"},

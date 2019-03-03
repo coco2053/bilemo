@@ -17,6 +17,10 @@ use App\Repository\PhoneRepository;
 use App\Entity\Phone;
 use App\Representation\Phones;
 
+/**
+ * This class handles phones ressources.
+ * @author Bastien Vacherand.
+ */
 class ProductController extends FOSRestController
 {
     /**

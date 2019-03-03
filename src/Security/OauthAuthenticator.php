@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class GithubAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
+class OauthAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
 {
     private $client;
     private $clientId;
@@ -36,22 +36,18 @@ class GithubAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     {
         $code = $request->query->get('code');
         $redirectUri = $this->router->generate('admin_auth', [], ROUTER::ABSOLUTE_URL);
-        $url = $this->params->get('oAuth_login_url').$this->clientId.'&client_secret='.$this->clientSecret.'&code='.$code.'&redirect_uri='.urlencode($redirectUri);
-
+        $url = $this->params->get('oAuth_url').'?code='.$code.'&client_id='.$this->clientId.'&client_secret='.$this->clientSecret.'&grant_type=authorization_code&redirect_uri='.urlencode($redirectUri);
 
         $response = $this->client->post($url, array(''));
+        $res = json_decode($response->getBody()->getContents(), true);
 
-        $res = $response->getBody()->getContents();
-        $info = explode('&', $res);
-        $res = explode('=', $info[0]);
-
-        if (isset($res[0]) && 'error' == $res[0]) {
-            throw new BadCredentialsException('No access_token returned by Github. Start over the process.');
+        if (isset($res["error"])) {
+            throw new BadCredentialsException('No access_token returned. Start over the process.');
         }
 
         return new PreAuthenticatedToken(
             'anon.',
-            $res[1],
+            $res['access_token'],
             $providerKey
         );
     }

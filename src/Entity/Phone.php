@@ -8,6 +8,9 @@ use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * This class represents the phone enity.
+ * @author Bastien Vacherand.
+ *
  * @ORM\Entity(repositoryClass="App\Repository\PhoneRepository")
  * @UniqueEntity(
  * fields= {"modelName"},

@@ -7,6 +7,10 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * This class handles the client authentication.
+ * @author Bastien Vacherand.
+ */
 class ClientController extends AbstractController
 {
     /**

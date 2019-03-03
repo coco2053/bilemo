@@ -7,6 +7,9 @@ use JMS\Serializer\Annotation\Type;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
+ * This class is a representaion of a set of users.
+ * @author Bastien Vacherand.
+ *
  * @Hateoas\Relation(
  *     "authenticated_user",
  *     embedded = @Hateoas\Embedded("expr(service('security.token_storage').getToken().getUser())")

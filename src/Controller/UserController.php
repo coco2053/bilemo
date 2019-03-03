@@ -22,6 +22,8 @@ use App\Representation\Users;
 use App\Repository\UserRepository;
 
 /**
+ * This class handles user ressources.
+ * @author Bastien Vacherand.
  * @Version("v2")
  */
 class UserController extends AbstractController

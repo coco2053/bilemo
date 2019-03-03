@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ClientRepository;
 use App\Entity\Token;
 
-class GithubUserProvider implements UserProviderInterface
+class OauthUserProvider implements UserProviderInterface
 {
     private $client;
 
@@ -28,7 +28,7 @@ class GithubUserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username)
     {
-        $url = $this->params->get('oAuth_url').$username;
+        $url = $this->params->get('oAuth_login_url').$username;
 
         $response = $this->client->get($url);
 
@@ -39,14 +39,15 @@ class GithubUserProvider implements UserProviderInterface
             throw new \LogicException('Did not managed to get your user info from Github.');
         }
 
-        $client = $this->repo->findOneBy(['username' => $userData['login']]);
+        $client = $this->repo->findOneBy(['email' => $userData['email']]);
+
         if ($client == null) {
             $client = new \App\Entity\Client(
-                $userData['login'],
+                $userData['given_name'],
                 $userData['name'],
                 $userData['email'],
-                $userData['avatar_url'],
-                $userData['html_url']
+                $userData['picture'],
+                $userData['link']
             );
             $token = new Token();
             $token->setToken($username);
