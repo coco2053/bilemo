@@ -7,6 +7,9 @@ use JMS\Serializer\Annotation\Type;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
+ * This class is a representaion of a set of users.
+ * @author Bastien Vacherand.
+ *
  * @Hateoas\Relation(
  *     "authenticated_user",
  *     embedded = @Hateoas\Embedded("expr(service('security.token_storage').getToken().getUser())")
@@ -28,7 +31,6 @@ class Users
         $this->addMeta('limit', $data->getMaxPerPage());
         $this->addMeta('current_items', count($data->getCurrentPageResults()));
         $this->addMeta('total_items', $data->getNbResults());
-        $this->addMeta('offset', $data->getCurrentPageOffsetStart());
     }
 
     public function addMeta($name, $value)

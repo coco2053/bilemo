@@ -2,8 +2,8 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory: { memory: ~ }
-        github_user_provider:
-            id: github_user_provider
+        oauth_user_provider:
+            id: oauth_user_provider
         api_user_provider:
             id: api_user_provider
     firewalls:
@@ -14,8 +14,8 @@ security:
             pattern: ^/admin
             stateless: false
             simple_preauth:
-                authenticator: github_authenticator
-            provider: github_user_provider
+                authenticator: oauth_authenticator
+            provider: oauth_user_provider
             logout:
                 path:   /admin/logout
                 target: /

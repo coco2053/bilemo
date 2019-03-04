@@ -5,10 +5,10 @@ csa_guzzle:
     profiler: '%kernel.debug%'
     logger: true
     clients:
-        github_oauth:
+        oauth:
             config:
                 base_url: https://github.com
-        github_api:
+        api:
             config:
                 base_url: https://api.github.com
         my_api:

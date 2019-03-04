@@ -6,13 +6,19 @@ use Doctrine\ORM\Mapping as ORM;
 use Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
+ * This class represents the phone enity.
+ * @author Bastien Vacherand.
+ *
  * @ORM\Entity(repositoryClass="App\Repository\PhoneRepository")
  * @UniqueEntity(
  * fields= {"modelName"},
  * groups={"Create"},
  * message= "Model name entered already registered !")
+ *
+ * @ExclusionPolicy("all")
  *
  * @Hateoas\Relation(
  *      "get",
@@ -58,7 +64,7 @@ class Phone
      * @ORM\Column(type="smallint")
      *
      * @Serializer\Expose
-     * @Serializer\Since("1.0")
+     * @Serializer\Since("2.0")
      *
      */
     private $memory;
@@ -67,7 +73,7 @@ class Phone
      * @ORM\Column(type="string", length=255)
      *
      * @Serializer\Expose
-     * @Serializer\Since("1.0")
+     * @Serializer\Since("2.0")
      *
      */
     private $color;

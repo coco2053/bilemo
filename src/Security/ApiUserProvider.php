@@ -26,24 +26,24 @@ class ApiUserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username)
     {
-        $url = $this->params->get('oAuth_url').$username;
-        $response = $this->client->get($url);
-
-        $res = $response->getBody()->getContents();
-        $userData = $this->serializer->deserialize($res, 'array', 'json');
-
-        if (!$userData) {
-            throw new \LogicException('Did not managed to get your user info from Github.');
-        }
         if (!$token = $this->repo->findOneBy(['token' => $username])) {
             throw new \LogicException('The token is not valid !.');
         }
         if (!$token->checkValidity()) {
             throw new \LogicException('The token has expired ! Please login in to get a new token.');
         }
+
+        $url = $this->params->get('oAuth_login_url').$username;
+        $response = $this->client->get($url);
+
+        $res = $response->getBody()->getContents();
+        $userData = $this->serializer->deserialize($res, 'array', 'json');
+
+        if (!$userData) {
+            throw new \LogicException('Did not managed to get your user info.');
+        }
+
         $client = $token->getClient();
-
-
 
         return $client;
     }

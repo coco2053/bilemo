@@ -17,6 +17,10 @@ use App\Repository\PhoneRepository;
 use App\Entity\Phone;
 use App\Representation\Phones;
 
+/**
+ * This class handles phones ressources.
+ * @author Bastien Vacherand.
+ */
 class ProductController extends FOSRestController
 {
     /**
@@ -38,12 +42,6 @@ class ProductController extends FOSRestController
      *     requirements="\d+",
      *     default="15",
      *     description="Max number of products per page."
-     * )
-     * @Rest\QueryParam(
-     *     name="offset",
-     *     requirements="\d+",
-     *     default="1",
-     *     description="The pagination offset"
      * )
      * @Rest\View()
      *
@@ -69,8 +67,7 @@ class ProductController extends FOSRestController
         $pager = $repo->search(
             $paramFetcher->get('keyword'),
             $paramFetcher->get('order'),
-            $paramFetcher->get('limit'),
-            $paramFetcher->get('offset')
+            $paramFetcher->get('limit')
         );
 
         return new Phones($pager);

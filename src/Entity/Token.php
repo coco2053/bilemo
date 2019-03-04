@@ -5,6 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * This class represents the token enity.
+ * @author Bastien Vacherand.
+ *
  * @ORM\Entity(repositoryClass="App\Repository\TokenRepository")
  */
 class Token
@@ -40,7 +43,7 @@ class Token
     {
         $now = new \DateTime("now");
         $interval = date_diff($this->getCreatedAt(), $now);
-        if ($interval->format('%d') > 1) {
+        if ($interval->format('%h') > 0) {
             return false;
         }
         return true;

@@ -5,12 +5,12 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
-    oAuth_client_id: 806299efff55f7676ecf
-    oAuth_client_secret: a64976af5a43670730a79bc76d6ad55a79dcb402
-    oAuth_url: https://api.github.com/user?access_token=
-    oAuth_login_url: https://github.com/login/oauth/access_token?client_id=
+    oAuth_client_id: 28330298461-ehsvkkcl9iqc7a428u7h02tv0215sk8m.apps.googleusercontent.com
+    oAuth_client_secret: StX1G47ze96Vi3b5uJP47xvn
+    oAuth_url: https://www.googleapis.com/oauth2/v4/token
+    oAuth_login_url: https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=
 
-    my_api_url: http://127.0.0.1:8000/
+    my_api_url: http://bilemo.com
 
 services:
     # default configuration for services in *this* file
@@ -32,17 +32,17 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    github_authenticator:
-        class: App\Security\GithubAuthenticator
-        arguments: ["@csa_guzzle.client.github_oauth", "%oAuth_client_id%", "%oAuth_client_secret%", "@router"]
+    oauth_authenticator:
+        class: App\Security\OauthAuthenticator
+        arguments: ["@csa_guzzle.client.oauth", "%oAuth_client_id%", "%oAuth_client_secret%", "@router"]
 
-    github_user_provider:
-        class: App\Security\GithubUserProvider
-        arguments: ["@csa_guzzle.client.github_api", "@jms_serializer"]
+    oauth_user_provider:
+        class: App\Security\OauthUserProvider
+        arguments: ["@csa_guzzle.client.api", "@jms_serializer"]
 
     api_authenticator:
         class: App\Security\ApiAuthenticator
 
     api_user_provider:
         class: App\Security\ApiUserProvider
-        arguments: ["@csa_guzzle.client.github_api", "@jms_serializer"]
+        arguments: ["@csa_guzzle.client.api", "@jms_serializer"]
