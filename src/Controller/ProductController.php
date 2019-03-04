@@ -43,12 +43,6 @@ class ProductController extends FOSRestController
      *     default="15",
      *     description="Max number of products per page."
      * )
-     * @Rest\QueryParam(
-     *     name="offset",
-     *     requirements="\d+",
-     *     default="1",
-     *     description="The pagination offset"
-     * )
      * @Rest\View()
      *
      * @SWG\Response(
@@ -73,8 +67,7 @@ class ProductController extends FOSRestController
         $pager = $repo->search(
             $paramFetcher->get('keyword'),
             $paramFetcher->get('order'),
-            $paramFetcher->get('limit'),
-            $paramFetcher->get('offset')
+            $paramFetcher->get('limit')
         );
 
         return new Phones($pager);

@@ -10,7 +10,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  * @method Phone|null find($id, $lockMode = null, $lockVersion = null)
  * @method Phone|null findOneBy(array $criteria, array $orderBy = null)
  * @method Phone[]    findAll()
- * @method Phone[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Phone[]    findBy(array $criteria, array $orderBy = null, $limit = null)
  */
 class UserRepository extends AbstractRepository
 {
@@ -19,14 +19,14 @@ class UserRepository extends AbstractRepository
         parent::__construct($registry, User::class);
     }
 
-    public function search($client_id, $term, $order = 'asc', $limit = 20, $offset = 0)
+    public function search($client_id, $term, $order = 'asc', $limit = 20)
     {
         $qb = $this
             ->createQueryBuilder('u')
             ->select('u')
             ->Where('u.client = :id')
             ->setParameter('id', $client_id)
-            ->orderBy('u.registeredAt', $order)
+            ->orderBy('u.username', $order)
 
         ;
         if ($term) {
@@ -36,6 +36,6 @@ class UserRepository extends AbstractRepository
             ;
         }
 
-        return $this->paginate($qb, $limit, $offset);
+        return $this->paginate($qb, $limit);
     }
 }

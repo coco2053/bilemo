@@ -24,7 +24,6 @@ use App\Repository\UserRepository;
 /**
  * This class handles user ressources.
  * @author Bastien Vacherand.
- * @Version("v2")
  */
 class UserController extends AbstractController
 {
@@ -47,12 +46,6 @@ class UserController extends AbstractController
      *     requirements="\d+",
      *     default="15",
      *     description="Max number of users per page."
-     * )
-     * @Rest\QueryParam(
-     *     name="offset",
-     *     requirements="\d+",
-     *     default="1",
-     *     description="The pagination offset"
      * )
      * @Rest\View()
      *
@@ -82,8 +75,7 @@ class UserController extends AbstractController
             $client->getId(),
             $paramFetcher->get('keyword'),
             $paramFetcher->get('order'),
-            $paramFetcher->get('limit'),
-            $paramFetcher->get('offset')
+            $paramFetcher->get('limit')
         );
 
         return new Users($pager);

@@ -50,16 +50,16 @@ class User
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Expose
-     * @Serializer\Since("2.0")
+     * @Serializer\Since("1.0")
      * @Assert\NotBlank(groups={"Create"})
      * @Assert\Email(groups={"Create"})
-     * @Serializer\Expose
      */
     private $email;
 
@@ -71,10 +71,9 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Expose
-     * @Serializer\Since("2.0")
+     * @Serializer\Since("1.0")
      * @Assert\NotBlank(groups={"Create"})
      * @Assert\Length(min="3", minMessage="Username must be at least 3 characters long !", groups={"Create"})
-     * @Serializer\Expose
      */
     private $username;
 
@@ -88,6 +87,7 @@ class User
     /**
      * @ORM\Column(type="datetime")
      * @Serializer\Expose
+     * @Serializer\Since("1.0")
      */
     private $registeredAt;
 
