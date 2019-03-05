@@ -27,7 +27,10 @@ class ClientController extends AbstractController
      */
     public function admin()
     {
-        return $this->render('client/admin.html.twig');
+        $client = $this->getUser();
+        $token = $client->getToken();
+        $date = $token->getCreatedAt();
+        return $this->render('client/admin.html.twig', ['date' => $date]);
     }
 
     /**

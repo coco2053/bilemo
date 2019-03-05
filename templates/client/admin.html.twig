@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Administration</h1>
-    <p class="lead">If you can access this page, it's because you are authenticated.</p>
-    <p class="lead">
-        Actually you are!
-        <br />
-        We have an access token: {{ app.user.token.token }}
-    </p>
+    <h3>Your token :</h3>
+    <input type="text" value="{{ app.user.token.token }}" id="myInput">
+    <button onclick="myFunction()">Copy</button>
+    <p class="val">Validity : <span id="countdown"></span></p>
+
+    {% if app.user %}
+        <p>
+            <a href="{{ path('logout') }}" type="button" class="btn btn-danger btn-sm"><i class="fa fa-sign-out"></i> Logout</a>
+        </p>
+    {% endif %}
+    <span id="Close" style='visibility:hidden'>{{ date|date('Y-m-d H:i:s') }}</span>
+
+    <script src="{{ asset("js/copyText.js") }}"></script>
+    <script src="{{ asset("js/countDown.js") }}"></script>
 {% endblock %}
+
