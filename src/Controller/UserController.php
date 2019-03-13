@@ -118,11 +118,9 @@ class UserController extends AbstractController
      */
     public function show(User $user = null, $id)
     {
+        $this->denyAccessUnlessGranted('GET', $user);
         if ($user) {
-            if ($user->getClient() == $this->getUser()) {
-                return $user;
-            }
-            return new Response('This user is not yours. You are not allowed to see it !', Response::HTTP_UNAUTHORIZED);
+            return $user;
         }
         return new Response('No user found with ID '.$id, Response::HTTP_NOT_FOUND);
     }
@@ -200,18 +198,13 @@ class UserController extends AbstractController
      * @SWG\Tag(name="users")
      * @Security(name="Bearer")
      */
-    public function delete($id, EntityManagerInterface $manager, UserRepository $repo)
+    public function delete(User $user, EntityManagerInterface $manager)
     {
-        if ($repo->find($id)) {
-            $userD = $repo->find($id);
+        $this->denyAccessUnlessGranted('DELETE', $user);
+        $manager->remove($user);
+        $manager->flush();
+        return new Response('User successfully deleted', Response::HTTP_ACCEPTED);
 
-            if ($userD->getClient() == $this->getUser()) {
-                $manager->remove($userD);
-                $manager->flush();
-                return new Response('User successfully deleted', Response::HTTP_ACCEPTED);
-            }
-            return new Response('This user is not yours. You are not allowed to delete it !', Response::HTTP_UNAUTHORIZED);
-        }
-        return new Response('No user found with ID '.$id, Response::HTTP_NOT_FOUND);
+        //return new Response('No user found with ID '.$id, Response::HTTP_NOT_FOUND);
     }
 }

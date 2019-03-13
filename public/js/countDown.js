@@ -1,4 +1,3 @@
-var EndDate = document.getElementById("Close");
 var EndDate = Date.parse(document.getElementById("Close").innerHTML);
 EndDate += 7200000;
 
