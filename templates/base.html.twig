@@ -11,15 +11,19 @@
       {% endblock %}
   </head>
   <body>
-        <div class="container">
-            <div class="truc">
-                <img class="logo" src="{{ asset("images/tel-ico-big.png") }}" alt="" style="width:30%">
-                <h1>bilemo api</h1>
-                {% block body %}{% endblock %}
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4"> </div>
+          <div class="col-md-4 truc">
+              <img class="logo" src="{{ asset("images/tel-ico-big.png") }}" alt="" style="width:30%">
+              <h1>bilemo api</h1>
+              {% block body %}{% endblock %}
+              <footer>
+                  <a target="_blank" href="/doc">documentation</a>
+              </footer>
             </div>
-            <footer>
-                <a target="_blank" href="/doc">documentation</a>
-            </footer>
+            <div class="col-md-4"> </div>
         </div>
+      </div>
     </body>
 </html>

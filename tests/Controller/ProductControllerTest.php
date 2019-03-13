@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductControllerTest extends WebTestCase
 {
-    const TOKEN = 'Bearer ya29.GlzBBuMFbo8HGqkRXZJOxGkf_4GO6fhdgKJIgLrUyKtBE2YOOn1Jf6jgBE5owARM2B3ZWg5lz5lDWOA2wmulmdHuBRZCtMhLC1GERMFal50cI9AB5-eA-oojhHHNqw';
+    const TOKEN = 'Bearer ya29.GlzLBiVzALBi9hvlfvhydJcW1EGQ3aSo5Z68_WusbAa62HobXMmMDHWAVnGdko0AOyvXwHMqEZpML8kD1Y1Jby-f0MNUuPu5OhUZLzyxEgeMbILvWfHuTFOHWoebKQ';
 
     public function testGetProductsList()
     {

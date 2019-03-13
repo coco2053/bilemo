@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends WebTestCase
 {
-    const TOKEN = 'Bearer ya29.GlzBBuMFbo8HGqkRXZJOxGkf_4GO6fhdgKJIgLrUyKtBE2YOOn1Jf6jgBE5owARM2B3ZWg5lz5lDWOA2wmulmdHuBRZCtMhLC1GERMFal50cI9AB5-eA-oojhHHNqw';
+    const TOKEN = 'Bearer ya29.GlzLBiVzALBi9hvlfvhydJcW1EGQ3aSo5Z68_WusbAa62HobXMmMDHWAVnGdko0AOyvXwHMqEZpML8kD1Y1Jby-f0MNUuPu5OhUZLzyxEgeMbILvWfHuTFOHWoebKQ';
 
     public function testGetUsersList()
     {
@@ -131,31 +131,6 @@ class UserControllerTest extends WebTestCase
         $this->assertSame(Response::HTTP_ACCEPTED, $client->getResponse()->getStatusCode());
     }
 
-
-    public function testNotFound()
-    {
-        $client = static::createClient();
-        $client->followRedirects();
-        $client->request(
-            'GET',
-            '/api/users/111111',
-            [],
-            [],
-            ['HTTP_Authorization' => self::TOKEN]
-        );
-        $this->assertSame(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
-
-        $client->request(
-            'DELETE',
-            '/api/users/11111',
-            [],
-            [],
-            ['HTTP_Authorization' => self::TOKEN]
-        );
-
-        $this->assertSame(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
-    }
-
     public function testBadRequest()
     {
         $client = static::createClient();
@@ -189,7 +164,7 @@ class UserControllerTest extends WebTestCase
             [],
             ['HTTP_Authorization' => self::TOKEN]
         );
-        $this->assertSame(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_FORBIDDEN, $client->getResponse()->getStatusCode());
 
         $client->request(
             'DELETE',
@@ -199,6 +174,6 @@ class UserControllerTest extends WebTestCase
             ['HTTP_Authorization' => self::TOKEN]
         );
 
-        $this->assertSame(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_FORBIDDEN, $client->getResponse()->getStatusCode());
     }
 }

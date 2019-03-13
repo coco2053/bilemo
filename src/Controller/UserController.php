@@ -100,7 +100,7 @@ class UserController extends AbstractController
      *     )
      * )
      * @SWG\Response(
-     *     response=401,
+     *     response=403,
      *     description="Returned when ressource is not yours"
      * )
      * @SWG\Response(
@@ -183,7 +183,7 @@ class UserController extends AbstractController
      *     requirements = {"id"="\d+"}
      * )
      * @SWG\Response(
-     *     response=200,
+     *     response=204,
      *     description="User successfully deleted"
      * )
      * @SWG\Response(
@@ -203,8 +203,8 @@ class UserController extends AbstractController
         $this->denyAccessUnlessGranted('DELETE', $user);
         $manager->remove($user);
         $manager->flush();
-        return new Response('User successfully deleted', Response::HTTP_ACCEPTED);
-
-        //return new Response('No user found with ID '.$id, Response::HTTP_NOT_FOUND);
+        $response = new Response();
+        $response->setStatusCode(204);
+        return $response;
     }
 }
