@@ -18,7 +18,7 @@ class ClientControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/');
         $this->assertGreaterThan(
             0,
-            $crawler->filter('html:contains("BileMo Api")')->count()
+            $crawler->filter('html:contains("Sign In with Google")')->count()
         );
     }
     public function testDocIsUp()
